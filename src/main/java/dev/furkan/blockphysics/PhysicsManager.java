@@ -98,7 +98,13 @@ public final class PhysicsManager {
 
         List<BlockFace> openEdges = findOpenEdges(landingBlock);
 
-        if (!openEdges.isEmpty() && state.getSlideAttempts() < config.getMaxSlideAttempts()) {
+        // Dort tarafi da acik oldugunda (tek genislikteki bir direk/yigin tepesi) kaymak
+        // yerine oldugu yerde yerlesir; aksi halde yalnizca izole kule uclari bile surekli
+        // etrafa savrulup ust uste istiflenemezdi. Kismi egimlerde (1-3 taraf acik) kayma
+        // hala gecerli.
+        boolean isolatedPeak = openEdges.size() == HORIZONTAL_FACES.length;
+
+        if (!openEdges.isEmpty() && !isolatedPeak && state.getSlideAttempts() < config.getMaxSlideAttempts()) {
             event.setCancelled(true);
             state.incrementSlideAttempts();
 

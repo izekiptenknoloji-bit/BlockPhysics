@@ -30,7 +30,7 @@ Sistemde Maven kurulu olmasa bile proje kendi Maven Wrapper'ini iceriyor:
 .\mvnw.cmd clean package
 ```
 
-Derlenen eklenti `target/BlockPhysics-1.0.0.jar` olarak olusur. Bu dosyayi sunucunun
+Derlenen eklenti `target/BlockPhysics-<surum>.jar` olarak olusur. Bu dosyayi sunucunun
 `plugins/` klasorune kopyalayip sunucuyu (yeniden) baslatmaniz yeterli.
 
 ## Komutlar / Izinler

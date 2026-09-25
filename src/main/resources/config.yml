@@ -54,3 +54,11 @@ physics:
 effects:
   sound: true
   particles: true
+
+update:
+  # GitHub Releases uzerinden yeni surum kontrolu
+  enabled: true
+  repository: "izekiptenknoloji-bit/BlockPhysics"
+  check-interval-hours: 12
+  # Yeni surum varsa "blockphysics.admin" izni olan oyunculara giriste haber ver
+  notify-ops-on-join: true

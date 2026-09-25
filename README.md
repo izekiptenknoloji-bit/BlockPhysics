@@ -35,7 +35,7 @@ Derlenen eklenti `target/BlockPhysics-1.0.0.jar` olarak olusur. Bu dosyayi sunuc
 
 ## Komutlar / Izinler
 
-- `/blockphysics reload|toggle|status` (kisaltmalar: `/bphysics`, `/bp`)
+- `/blockphysics reload|toggle|status|checkupdate` (kisaltmalar: `/bphysics`, `/bp`)
 - Izin: `blockphysics.admin` (varsayilan: op)
 
 ## Ayarlar (`config.yml`)
@@ -48,6 +48,26 @@ Derlenen eklenti `target/BlockPhysics-1.0.0.jar` olarak olusur. Bu dosyayi sunuc
 - `physics.max-cascade-per-event`: tek olayda tetiklenebilecek maksimum zincirleme blok
 - `physics.drop-item-if-no-space`: yerlesecek yer yoksa item olarak dussun mu
 - `effects.sound` / `effects.particles`: yerlesme efektleri
+- `update.enabled`: GitHub Releases uzerinden otomatik guncelleme kontrolunu ac/kapa
+- `update.repository`: kontrol edilecek GitHub deposu (`owner/repo`)
+- `update.check-interval-hours`: periyodik kontrol araligi
+- `update.notify-ops-on-join`: yeni surum varsa `blockphysics.admin` izinli oyunculara giriste haber ver
+
+## Guncelleme sistemi
+
+Eklenti, [GitHub Releases](https://github.com/izekiptenknoloji-bit/BlockPhysics/releases) sayfasini
+periyodik olarak (varsayilan 12 saatte bir) ve sunucu acilisinda kontrol eder. Depo public
+oldugu icin ekstra bir token/kimlik dogrulama gerekmez. Yeni bir surum yayinlandiginda:
+
+- Konsola bir uyari log'lanir.
+- `blockphysics.admin` izni olan oyunculara sunucuya girdiklerinde bildirim gosterilir.
+- `/blockphysics checkupdate` ile anlik olarak manuel kontrol edilebilir.
+
+Otomatik guncelleme (jar'in kendini indirip degistirmesi) **yapilmaz** — bildirim sadece
+yeni bir surumun oldugunu ve indirme linkini gosterir, kurulumu sunucu sahibi yapar.
+
+Yeni bir surum yayinlamak icin: `pom.xml` ve derlenen jar'daki surumu artirin, GitHub'da
+`vX.Y.Z` formatinda bir tag/release olusturup jar'i o release'e asset olarak ekleyin.
 
 ## Bilinen sinirlamalar (sonraki adimlar icin)
 

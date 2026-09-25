@@ -22,6 +22,11 @@ public final class ConfigManager {
     private boolean soundEffects;
     private boolean particleEffects;
 
+    private boolean updateCheckEnabled;
+    private String updateRepository;
+    private long updateCheckIntervalHours;
+    private boolean notifyOpsOnJoin;
+
     public ConfigManager(BlockPhysicsPlugin plugin) {
         this.plugin = plugin;
         reload();
@@ -52,6 +57,11 @@ public final class ConfigManager {
 
         this.soundEffects = config.getBoolean("effects.sound", true);
         this.particleEffects = config.getBoolean("effects.particles", true);
+
+        this.updateCheckEnabled = config.getBoolean("update.enabled", true);
+        this.updateRepository = config.getString("update.repository", "izekiptenknoloji-bit/BlockPhysics");
+        this.updateCheckIntervalHours = Math.max(1, config.getInt("update.check-interval-hours", 12));
+        this.notifyOpsOnJoin = config.getBoolean("update.notify-ops-on-join", true);
     }
 
     public boolean isEnabled() {
@@ -89,5 +99,21 @@ public final class ConfigManager {
 
     public boolean isParticleEffects() {
         return particleEffects;
+    }
+
+    public boolean isUpdateCheckEnabled() {
+        return updateCheckEnabled;
+    }
+
+    public String getUpdateRepository() {
+        return updateRepository;
+    }
+
+    public long getUpdateCheckIntervalHours() {
+        return updateCheckIntervalHours;
+    }
+
+    public boolean isNotifyOpsOnJoin() {
+        return notifyOpsOnJoin;
     }
 }

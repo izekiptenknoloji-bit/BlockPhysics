@@ -1,0 +1,18 @@
+name: BlockPhysics
+version: '${project.version}'
+main: dev.furkan.blockphysics.BlockPhysicsPlugin
+api-version: '1.21'
+author: Furkan
+description: Minecraft'a gercekci blok dusme ve kayma fizigi ekler.
+
+commands:
+  blockphysics:
+    description: BlockPhysics eklentisini yonetir.
+    aliases: [bphysics, bp]
+    usage: /<command> <reload|toggle|status>
+    permission: blockphysics.admin
+
+permissions:
+  blockphysics.admin:
+    description: BlockPhysics komutlarini kullanma izni.
+    default: op

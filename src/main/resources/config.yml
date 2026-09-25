@@ -1,0 +1,56 @@
+# BlockPhysics ayarlari
+
+# Eklentiyi tamamen ac/kapa
+enabled: true
+
+blocks:
+  # "whitelist" -> sadece listedeki bloklar fizikten etkilenir (guvenli, varsayilan)
+  # "blacklist" -> listedeki bloklar HARIC tum solid bloklar fizikten etkilenir (dikkatli kullanin)
+  mode: whitelist
+  list:
+    - STONE
+    - COBBLESTONE
+    - MOSSY_COBBLESTONE
+    - DIRT
+    - GRASS_BLOCK
+    - COARSE_DIRT
+    - PODZOL
+    - ANDESITE
+    - DIORITE
+    - GRANITE
+    - POLISHED_ANDESITE
+    - POLISHED_DIORITE
+    - POLISHED_GRANITE
+    - NETHERRACK
+    - END_STONE
+    - OAK_LOG
+    - SPRUCE_LOG
+    - BIRCH_LOG
+    - JUNGLE_LOG
+    - ACACIA_LOG
+    - DARK_OAK_LOG
+    - OAK_PLANKS
+    - SPRUCE_PLANKS
+    - BIRCH_PLANKS
+    - JUNGLE_PLANKS
+    - ACACIA_PLANKS
+    - DARK_OAK_PLANKS
+    - WHITE_WOOL
+    - WHITE_CONCRETE
+    - WHITE_TERRACOTTA
+    - BRICKS
+    - SANDSTONE
+    - RED_SANDSTONE
+    - CLAY
+
+physics:
+  # Bir blok, dusup yerlesecegi konumda kenar/egim bulursa kac kez kaymayi dener
+  max-slide-attempts: 8
+  # Tek bir zincirleme cokme olayinda en fazla kac blok tetiklenebilir (performans korumasi)
+  max-cascade-per-event: 200
+  # Yerlesecek uygun yer bulunamazsa (or. baska bir blokla cakisirsa) item olarak dussun mu
+  drop-item-if-no-space: true
+
+effects:
+  sound: true
+  particles: true

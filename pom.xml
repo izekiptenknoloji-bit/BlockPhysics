@@ -6,7 +6,7 @@
 
     <groupId>dev.furkan</groupId>
     <artifactId>blockphysics</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>BlockPhysics</name>
@@ -35,7 +35,7 @@
     </dependencies>
 
     <build>
-        <finalName>${project.name}-${project.version}</finalName>
+        <finalName>${project.name}</finalName>
         <defaultGoal>clean package</defaultGoal>
         <resources>
             <resource>

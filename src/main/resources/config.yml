@@ -62,3 +62,6 @@ update:
   check-interval-hours: 12
   # Yeni surum varsa "blockphysics.admin" izni olan oyunculara giriste haber ver
   notify-ops-on-join: true
+  # Yeni surum bulununca jar'i otomatik indirip sunucu bir sonraki acilista
+  # otomatik kurulacak sekilde hazirlar (Bukkit'in "update folder" ozelligi).
+  auto-download: true

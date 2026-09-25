@@ -34,5 +34,10 @@ public final class UpdateNotifyListener implements Listener {
 
         player.sendMessage(ChatColor.GOLD + "[BlockPhysics] " + ChatColor.YELLOW + "Yeni surum mevcut: "
                 + ChatColor.WHITE + update.version() + ChatColor.YELLOW + " -> " + ChatColor.AQUA + update.url());
+
+        if (plugin.isUpdateStaged()) {
+            player.sendMessage(ChatColor.GOLD + "[BlockPhysics] " + ChatColor.YELLOW
+                    + "Guncelleme indirildi, sunucu yeniden baslatildiginda otomatik kurulacak.");
+        }
     }
 }

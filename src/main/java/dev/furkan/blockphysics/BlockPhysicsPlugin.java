@@ -6,12 +6,15 @@ import dev.furkan.blockphysics.listeners.BlockChangeListener;
 import dev.furkan.blockphysics.listeners.UpdateNotifyListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public final class BlockPhysicsPlugin extends JavaPlugin {
 
     private ConfigManager configManager;
     private PhysicsManager physicsManager;
     private UpdateChecker updateChecker;
     private volatile RemoteRelease availableUpdate;
+    private volatile boolean updateStaged;
 
     @Override
     public void onEnable() {
@@ -59,12 +62,38 @@ public final class BlockPhysicsPlugin extends JavaPlugin {
             if (release == null) {
                 return;
             }
-            if (UpdateChecker.isNewer(release.version(), getPluginMeta().getVersion())) {
-                this.availableUpdate = release;
-                getLogger().warning("Yeni bir BlockPhysics surumu mevcut: " + release.version()
-                        + " (mevcut: " + getPluginMeta().getVersion() + ") -> " + release.url());
+            if (!UpdateChecker.isNewer(release.version(), getPluginMeta().getVersion())) {
+                return;
+            }
+
+            this.availableUpdate = release;
+            getLogger().warning("Yeni bir BlockPhysics surumu mevcut: " + release.version()
+                    + " (mevcut: " + getPluginMeta().getVersion() + ") -> " + release.url());
+
+            if (configManager.isAutoDownloadUpdates()) {
+                stageUpdate(release, null);
             }
         });
+    }
+
+    /** Guncellemeyi indirip bir sonraki sunucu yeniden baslatmasinda otomatik kurulacak sekilde hazirlar. */
+    public void stageUpdate(RemoteRelease release, Runnable onDone) {
+        updateChecker.downloadAndStage(release, success -> {
+            if (success) {
+                this.updateStaged = true;
+                getLogger().warning("Guncelleme indirildi ve hazirlandi. Sunucu bir sonraki yeniden baslatmada "
+                        + release.version() + " surumune otomatik gececek.");
+            } else {
+                getLogger().warning("Guncelleme indirilemedi, manuel kurmaniz gerekebilir: " + release.url());
+            }
+            if (onDone != null) {
+                onDone.run();
+            }
+        });
+    }
+
+    public File getPluginJarFile() {
+        return getFile();
     }
 
     public UpdateChecker getUpdateChecker() {
@@ -77,6 +106,10 @@ public final class BlockPhysicsPlugin extends JavaPlugin {
 
     public void setAvailableUpdate(RemoteRelease availableUpdate) {
         this.availableUpdate = availableUpdate;
+    }
+
+    public boolean isUpdateStaged() {
+        return updateStaged;
     }
 
     public PhysicsManager getPhysicsManager() {

@@ -54,6 +54,9 @@ public final class PhysicsCommand implements CommandExecutor, TabCompleter {
                 if (plugin.getAvailableUpdate() != null) {
                     sender.sendMessage(ChatColor.YELLOW + "Yeni surum mevcut: " + plugin.getAvailableUpdate().version()
                             + " -> " + plugin.getAvailableUpdate().url());
+                    if (plugin.isUpdateStaged()) {
+                        sender.sendMessage(ChatColor.YELLOW + "Guncelleme indirildi, sunucu yeniden baslatildiginda kurulacak.");
+                    }
                 }
             }
             case "checkupdate" -> checkUpdate(sender);
@@ -78,6 +81,16 @@ public final class PhysicsCommand implements CommandExecutor, TabCompleter {
             if (UpdateChecker.isNewer(release.version(), currentVersion)) {
                 plugin.setAvailableUpdate(release);
                 sender.sendMessage(ChatColor.GREEN + "Yeni surum mevcut: " + release.version() + " -> " + release.url());
+                if (configManager.isAutoDownloadUpdates()) {
+                    sender.sendMessage(ChatColor.YELLOW + "Indiriliyor...");
+                    plugin.stageUpdate(release, () -> {
+                        if (plugin.isUpdateStaged()) {
+                            sender.sendMessage(ChatColor.GREEN + "Guncelleme indirildi. Sunucu yeniden baslatildiginda otomatik kurulacak.");
+                        } else {
+                            sender.sendMessage(ChatColor.RED + "Guncelleme indirilemedi, elle kurmaniz gerekebilir.");
+                        }
+                    });
+                }
             } else {
                 sender.sendMessage(ChatColor.GREEN + "BlockPhysics guncel (v" + currentVersion + ").");
             }

@@ -26,6 +26,7 @@ public final class ConfigManager {
     private String updateRepository;
     private long updateCheckIntervalHours;
     private boolean notifyOpsOnJoin;
+    private boolean autoDownloadUpdates;
 
     public ConfigManager(BlockPhysicsPlugin plugin) {
         this.plugin = plugin;
@@ -62,6 +63,7 @@ public final class ConfigManager {
         this.updateRepository = config.getString("update.repository", "izekiptenknoloji-bit/BlockPhysics");
         this.updateCheckIntervalHours = Math.max(1, config.getInt("update.check-interval-hours", 12));
         this.notifyOpsOnJoin = config.getBoolean("update.notify-ops-on-join", true);
+        this.autoDownloadUpdates = config.getBoolean("update.auto-download", true);
     }
 
     public boolean isEnabled() {
@@ -115,5 +117,9 @@ public final class ConfigManager {
 
     public boolean isNotifyOpsOnJoin() {
         return notifyOpsOnJoin;
+    }
+
+    public boolean isAutoDownloadUpdates() {
+        return autoDownloadUpdates;
     }
 }

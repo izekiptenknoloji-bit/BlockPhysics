@@ -52,6 +52,7 @@ Derlenen eklenti `target/BlockPhysics-<surum>.jar` olarak olusur. Bu dosyayi sun
 - `update.repository`: kontrol edilecek GitHub deposu (`owner/repo`)
 - `update.check-interval-hours`: periyodik kontrol araligi
 - `update.notify-ops-on-join`: yeni surum varsa `blockphysics.admin` izinli oyunculara giriste haber ver
+- `update.auto-download`: yeni surum bulununca jar'i otomatik indirip kurulmaya hazirlar
 
 ## Guncelleme sistemi
 
@@ -62,12 +63,18 @@ oldugu icin ekstra bir token/kimlik dogrulama gerekmez. Yeni bir surum yayinland
 - Konsola bir uyari log'lanir.
 - `blockphysics.admin` izni olan oyunculara sunucuya girdiklerinde bildirim gosterilir.
 - `/blockphysics checkupdate` ile anlik olarak manuel kontrol edilebilir.
+- `update.auto-download: true` (varsayilan) ise yeni surumun jar'i otomatik indirilip
+  Bukkit/Paper'in yerlesik **update-folder** mekanizmasiyla (`plugins/update/`) bir sonraki
+  sunucu yeniden baslatmasinda otomatik olarak eskisinin yerine kurulur. Bu mekanizma
+  gercekten calisiyor mu diye Paper 1.21.4 uzerinde manuel test edilip dogrulanmistir.
 
-Otomatik guncelleme (jar'in kendini indirip degistirmesi) **yapilmaz** — bildirim sadece
-yeni bir surumun oldugunu ve indirme linkini gosterir, kurulumu sunucu sahibi yapar.
+Jar, sunucu calisirken kendi kendini degistiremez (Windows'ta dosya kilitli olur), bu yuzden
+kurulum icin **sunucunun yeniden baslatilmasi** gerekir — indirme/hazirlama otomatik, sadece
+son adim (restart) sunucu sahibinde.
 
-Yeni bir surum yayinlamak icin: `pom.xml` ve derlenen jar'daki surumu artirin, GitHub'da
-`vX.Y.Z` formatinda bir tag/release olusturup jar'i o release'e asset olarak ekleyin.
+Yeni bir surum yayinlamak icin: `pom.xml`'deki surumu artirin, derleyin, GitHub'da `vX.Y.Z`
+formatinda bir tag/release olusturup derlenen `target/BlockPhysics.jar` dosyasini o release'e
+asset olarak ekleyin.
 
 ## Bilinen sinirlamalar (sonraki adimlar icin)
 
